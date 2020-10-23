@@ -21,7 +21,11 @@ module ApplicationHelper
     "<script>
 
       document.body.addEventListener('ajax:before', function(event) {
-        document.getElementById('modal-carregando').classList.remove('oculta')
+        document.getElementById('modal-carregando').modal({
+          backdrop: 'static',
+          keyboard: false,
+          show: true
+        })
       })
 
     </script>".html_safe

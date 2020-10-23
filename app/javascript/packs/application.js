@@ -20,6 +20,7 @@ global.toastr = toastr
 import Rails from '@rails/ujs'
 global.Rails = Rails
 
-require('bootstrap')
+import 'bootstrap'
+
 
 import "controllers"

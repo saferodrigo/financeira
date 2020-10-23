@@ -1,4 +1,62 @@
-<h2>Seja bem-vindo à financeira Nobe</h2>
-<p>
-  <%= I18n.l(Time.now, format: :data_hora) %>
-</p>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+  </ol>
+
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img class="d-block w-100" src="<%= asset_path('image-financy-1.png') %>" alt=""  width="800" height="400">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="<%= asset_path('image-financy-2.png') %>" alt=""  width="800" height="400">
+    </div>
+    <div class="carousel-item">
+      <img class="d-block w-100" src="<%= asset_path('image-financy-3.png') %>" alt=""  width="800" height="400">
+    </div>
+  </div>
+
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Primeiro</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Último</span>
+  </a>
+</div>
+
+<div class="container">
+  <br>
+  <h2>Somos a Nobe Financeira S/A</h2>
+
+  <p>
+    Aqui você pode investir com qualidade e confiança.
+  </p>
+
+  <hr>
+  <div class="jumbotron">
+
+    <h5>Leve para a sua vida</h5>
+    <p>Tudo que você precisa, agora mais leve do que nunca.</p>
+
+
+    <div class="float-left">
+      <p>Já é cliente?</p>
+
+      <button type="button" class="btn btn-secondary btn-lg">
+        Acessar Conta
+      </button>
+    </div>
+
+    <div class="text-right">
+      <p>Não é cliente?</p>
+
+      <button type="button" class="btn btn-dark btn-lg">
+        Cadastrar Conta
+      </button>
+    </div>
+
+  </div>
+</div>
