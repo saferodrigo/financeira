@@ -1,0 +1,38 @@
+<%= form_with(model: usuario, local: true) do |form| %>
+<% if usuario.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert-error">
+      <%= pluralize(usuario.errors.count, "erro(s)") %>.
+    </div>
+
+    <ul>
+      <% usuario.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="form-group">
+  <%= form.label :nome %>
+  <%= form.text_field :nome, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :cpf, 'CPF' %>
+  <%= form.text_field :cpf, class: "form-control", id: 'cpf',
+      onkeypress: "return event.charCode >= 48 && event.charCode <= 57" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :password %>
+  <%= form.password_field :password, class: "form-control" %>
+</div>
+
+<div class="form-group">
+  <%= form.label :password_confirmation %>
+  <%= form.password_field :password_confirmation, class: "form-control" %>
+</div>
+
+<button type="submit" class="btn btn-dark float-right"><%= usuario.id ? 'Atualizar' : 'Cadastrar' %></button>
+<% end %>

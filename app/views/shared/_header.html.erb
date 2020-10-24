@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" data-controller="home">
   
   <a class="navbar-brand" href="/">
-    <img src="<%= asset_path('logomarca1.svg') %>" alt="NOBE Financeira S/A" title="NOBE Financeira S/A" width="50" height="60">
+    <img src="<%= asset_path('logomarca1.svg') %>" alt="NOBE Financeira S/A" title="NOBE Financeira S/A" width="50" height="60" class="rounded-circle">
   </a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
@@ -12,16 +12,31 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home</a>
+        <a class="nav-link" href="/">Home</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" href="#">Administrativo</a>
-      </li>
-
-      <li class="nav-item">
-        <a class="nav-link" href="#">Conta Pessoal</a>
+        <a class="nav-link" href="/usuarios/new">Cadastrar Conta</a>
       </li>
     </ul>
   </div>
+
+  <% if logged_in? %>
+    <a href="<%= usuario_path(id: current_user.id) %>">
+      <span class="text-light"><%= current_user.nome %></span>
+    </a>
+
+    <%= link_to sign_out_path, class: 'nav-link', method: :delete do %>
+      Sair
+      <i class="fas fa-sign-out-alt"></i>
+    <% end %>
+
+  <% else %>
+
+    <%= link_to login_path, class: 'nav-link', method: :get do %>
+      <i class="fas fa-sign-in-alt"></i>
+      Login
+    <% end %>
+
+  <% end %>
 </nav>

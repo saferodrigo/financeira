@@ -1,10 +1,15 @@
 import { Controller } from "stimulus"
 
+import toastr from 'toastr'
 export default class extends Controller {
-  static targets = ["modalCarregando"]
+  static targets = [
+    "modalCarregando", "buttonAcessarConta", "buttonCadastrarConta"
+  ]
 
   connect() {
     console.log('conectado')
+
+    toastr.success('teste')
   }
 
   exibirModal() {
@@ -17,5 +22,20 @@ export default class extends Controller {
 
   fecharModal() {
     $('#modal-carregando').modal('hide')
+  }
+
+  irParaLogin() {
+    console.log('aqu')
+    Turbolinks.clearCache()
+    Turbolinks.visit('/login', {
+      action: 'replace'
+    })
+  }
+
+  irCadastrarUsuario() {
+    Turbolinks.clearCache()
+    Turbolinks.visit('/usuarios/new', {
+      action: 'replace'
+    })
   }
 }

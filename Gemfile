@@ -13,11 +13,14 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 
+gem 'bcrypt'
 gem 'bootsnap', '>= 1.4.2', require: false
+gem 'cpf_cnpj'
 gem 'jbuilder', '~> 2.7'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'rspec-rails', '~> 4.0.1'
 end
 
 group :development do
