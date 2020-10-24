@@ -11,14 +11,6 @@ require('channels')
 require('jquery')
 require('inputmask')
 
-$(document).on('turbolinks:load', function () {
-  var inputmask = new Inputmask('999.999.999-99')
-  var elem = $('#cpf')[0]
-
-  if (elem)
-    inputmask.mask(elem)
-})
-
 import $ from 'jquery'
 import toastr from 'toastr'
 
@@ -31,5 +23,13 @@ global.Rails = Rails
 
 import 'bootstrap'
 import '@fortawesome/fontawesome-free/js/all'
+
+$(document).on('turbolinks:load', function () {
+  var inputmask = new Inputmask('999.999.999-99')
+  var elem = $('#cpf')[0]
+
+  if (elem)
+    inputmask.mask(elem)
+})
 
 import 'controllers'

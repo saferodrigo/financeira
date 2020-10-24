@@ -1,6 +1,7 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: %i[show edit update destroy]
   before_action :correct_user?, only: %i[edit update destroy]
+  include SessionsHelper
 
   def index
     flash[:error] = 'Acesso negado!'
@@ -20,6 +21,8 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @usuario.save
+        sign_in(@usuario)
+
         format.html { redirect_to @usuario, notice: t('messages.success', model: Usuario.model_name.human) }
         format.json { render :show, status: :created, location: @usuario }
       else
