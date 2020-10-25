@@ -17,8 +17,8 @@
   <input type="hidden" name="usuario[conta_attributes][ativa]" value="true" />
 
   <div class="form-group">
-    <%= form.label :nome %>
-    <%= form.text_field :nome, class: "form-control", required: true %>
+    <%= form.label :nome, 'Nome' %>
+    <%= form.text_field :nome, class: "form-control", required: true, placeholder: '* Campo obrigatório' %>
   </div>
 
   <div class="form-group">
@@ -28,7 +28,7 @@
     disabled: usuario.id,
     data: {
       target: 'usuarios.cpf'
-    } %>
+    }, placeholder: '* Campo obrigatório' %>
 
     <% unless usuario.id %>
       <button type="button" role="button" class="form-control bt btn-light" data-target="usuarios.buttonGerarCPF"
@@ -38,12 +38,12 @@
 
   <div class="form-group">
     <%= form.label :password, 'Senha' %>
-    <%= form.password_field :password, class: "form-control" %>
+    <%= form.password_field :password, class: "form-control", placeholder: '* Campo obrigatório' %>
   </div>
 
   <div class="form-group">
     <%= form.label :password_confirmation, 'Confirmar Senha' %>
-    <%= form.password_field :password_confirmation, class: "form-control" %>
+    <%= form.password_field :password_confirmation, class: "form-control", placeholder: '* Campo obrigatório' %>
   </div>
 
   <button type="submit" class="btn btn-dark float-right" data-action="usuarios#salvar"><%= usuario.id ? 'Atualizar Cadastro' : 'Cadastrar' %></button>

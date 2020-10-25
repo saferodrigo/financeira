@@ -64,7 +64,7 @@ export default class extends Controller {
 
     if (form.checkValidity()) {
 
-      if (this.idTarget.value != '' || !this.idTarget.value) {
+      if (this.idTarget.value || this.idTarget.value != '') {
         swal({
           title: 'Atenção!',
           text: 'Tem certeza que deseja confirmar estas alterações no cadastro da sua conta?',

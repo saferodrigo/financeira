@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
       end
     else
       sign_out
-      flash[:error] = 'Usuário não cadastrado no sistema'
+      flash[:error] = 'Cliente não cadastrado no sistema'
       redirect_to login_path
     end
   end
