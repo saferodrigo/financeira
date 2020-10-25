@@ -20,7 +20,13 @@ gem 'jbuilder', '~> 2.7'
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
-  gem 'rspec-rails', '~> 4.0.1'
+  gem 'factory_bot_rails'
+  gem 'rails-controller-testing'
+  gem 'rspec'
+  gem 'rspec-rails'
+  gem 'rubocop'
+  gem 'rubocop-faker'
+  gem 'shoulda-matchers', '~> 4.4'
 end
 
 group :development do

@@ -1,14 +1,81 @@
-<div class="container">
-  <br>
-  <div class="float-left">
-    <h1>
-      <%= @usuario.nome %>
-    </h1>
+<div class="container-fluid" data-controller="usuarios-show">
+  <hr>
+
+  <input type="hidden" value="<%= @usuario.id %>" data-target="usuarios-show.id" />
+
+  <div class="row">
+    <div class="col-md-8">
+      <h1>
+        <%= @usuario.nome %>
+      </h1>
+    </div>
+
+    <div class="col-md-4 text-right">
+      <span>
+        CPF: <strong><%= @usuario.cpf_formatado %></strong>
+      </span>
+    </div>
   </div>
 
-  <div class="float-right">
-    <h1>
-      <%= @usuario.cpf_formatado %>
-    </h1>
+  <% if @usuario&.id == current_user&.id %>
+  <hr>
+
+  <div class="row">
+    <div class="col-md-6">
+      <%= link_to edit_usuario_path, class: 'btn btn-outline-secondary btn-sm' do %>
+      <i class="fas fa-edit"></i>
+      Alterar Cadastro
+      <% end %>
+    </div>
+
+    <div class="col-md-6">
+      <%= link_to encerrar_conta_usuario_path(@usuario), class: 'btn btn-outline-danger btn-sm float-right',
+        data: {
+          target: 'usuarios-show.buttonEncerrarConta',
+          action: 'usuarios-show#encerrarConta',
+          numero: @usuario.conta.numero_formatado
+        } do %>
+      <i class="fas fa-times"></i>
+      Encerrar Conta
+      <% end %>
+    </div>
+  </div>
+  <% end %>
+
+  <hr>
+
+  <div class="jumbotron">
+    <div class="row">
+
+      <div class="col-md-8 text-left">
+        <span class="bd-content-title">
+          Conta
+          <% if @usuario.conta.ativa? %>
+          <i class="fas fa-check-circle text-success" title="Conta ativa"></i>
+          <% else %>
+          <i class="fas fa-times-circle text-danger" title="Conta encerrada"></i>
+          <% end %>
+        </span>
+      </div>
+
+      <div class="col-md-4 text-right">
+        n° <%= @usuario.conta.numero_formatado %>
+      </div>
+    </div>
+
+    <hr>
+
+    <p>
+      <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseSaldo"
+        aria-expanded="false" aria-controls="collapseSaldo">
+        Saldo
+      </button>
+    </p>
+
+    <div class="collapse" id="collapseSaldo">
+      <div id="card-saldo" class="card card-body">
+        <h3>Saldo atual: <strong><%= number_to_currency(@usuario.conta.saldo) %></strong></h3>
+      </div>
+    </div>
   </div>
 </div>

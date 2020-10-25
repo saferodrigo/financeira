@@ -13,5 +13,6 @@ toastr.options = {
   closeButton: true,
   timeOut: 3000,
   fadeOut: 3000,
-  preventDuplicates: true
+  preventDuplicates: true,
+  positionClass: 'toast-bottom-right'
 }

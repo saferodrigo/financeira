@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
-  resources :usuarios
+  resources :contas
+
+  resources :usuarios do
+    get :gerar_cpf, on: :collection, format: :json
+    get :saldo, on: :member, format: :json
+    get :encerrar_conta, on: :member
+  end
 
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'

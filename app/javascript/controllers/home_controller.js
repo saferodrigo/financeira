@@ -3,14 +3,10 @@ import { Controller } from "stimulus"
 import toastr from 'toastr'
 export default class extends Controller {
   static targets = [
-    "modalCarregando", "buttonAcessarConta", "buttonCadastrarConta"
+    "buttonAcessarConta", "buttonCadastrarConta"
   ]
 
-  connect() {
-    console.log('conectado')
-
-    toastr.success('teste')
-  }
+  connect() {}
 
   exibirModal() {
     $('#modal-carregando').modal({

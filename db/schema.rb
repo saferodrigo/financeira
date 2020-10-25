@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_24_001732) do
+ActiveRecord::Schema.define(version: 2020_10_24_152900) do
+
+  create_table "contas", force: :cascade do |t|
+    t.integer "usuario_id", null: false
+    t.decimal "saldo", default: "0.0", null: false
+    t.integer "numero", null: false
+    t.boolean "ativa", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["usuario_id"], name: "index_contas_on_usuario_id"
+  end
 
   create_table "usuarios", force: :cascade do |t|
     t.string "nome", null: false
@@ -20,4 +30,5 @@ ActiveRecord::Schema.define(version: 2020_10_24_001732) do
     t.string "password_digest"
   end
 
+  add_foreign_key "contas", "usuarios"
 end

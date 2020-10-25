@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @conta.usuario_id %>
+</p>
+
+<p>
+  <strong>Saldo:</strong>
+  <%= @conta.saldo %>
+</p>
+
+<p>
+  <strong>Numero:</strong>
+  <%= @conta.numero %>
+</p>
+
+<p>
+  <strong>Ativa:</strong>
+  <%= @conta.ativa %>
+</p>
+
+<%= link_to 'Edit', edit_conta_path(@conta) %> |
+<%= link_to 'Back', contas_path %>

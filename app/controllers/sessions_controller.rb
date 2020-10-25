@@ -9,13 +9,19 @@ class SessionsController < ApplicationController
   def create
     @usuario = Usuario.find_by(cpf: params[:session][:cpf])
 
-    if @usuario&.authenticate(params[:session][:password])
-      sign_in(@usuario)
-      redirect_to @usuario
+    if @usuario.present?
+      if @usuario&.authenticate(params[:session][:password])
+        sign_in(@usuario)
+        redirect_to @usuario
+      else
+        sign_out
+        flash[:error] = 'CPF ou senha inválidos'
+        redirect_to login_path
+      end
     else
       sign_out
-      flash[:error] = "CPF ou senha inválidos"
-      render :new
+      flash[:error] = 'Usuário não cadastrado no sistema'
+      redirect_to login_path
     end
   end
 
@@ -26,11 +32,5 @@ class SessionsController < ApplicationController
 
   def authorize
     redirect_to root_url unless logged_in?
-  end
-
-  def correct_user?
-    @usuario = Usuario.find(params[:id])
-
-    redirect_to usuario_path(@usuario) unless current_user == @usuario
   end
 end

@@ -12,7 +12,9 @@ require('jquery')
 require('inputmask')
 
 import $ from 'jquery'
+import './src/application.scss'
 import toastr from 'toastr'
+window.toastr = toastr
 
 global.$ = $
 global.jQuery = $
@@ -32,4 +34,4 @@ $(document).on('turbolinks:load', function () {
     inputmask.mask(elem)
 })
 
-import 'controllers'
+import "controllers"
