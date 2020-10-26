@@ -3,7 +3,7 @@ require 'cpf_cnpj'
 class Usuario < ApplicationRecord
   has_secure_password
 
-  has_one :conta, class_name: 'Conta', dependent: :destroy
+  has_one :conta, class_name: 'Conta', dependent: :restrict_with_exception
 
   validates :nome, presence: true, length: { maximum: 50 }
   validates :cpf, presence: true, length: { is: 14 }, uniqueness: true
@@ -45,7 +45,7 @@ class Usuario < ApplicationRecord
     save!
 
     conta_tranferencia = Conta.find(conta_id)
-    conta_tranferencia.valor += valor.to_f
+    conta_tranferencia.saldo += valor.to_f
     conta_tranferencia.save!
   end
 

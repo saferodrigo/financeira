@@ -14,7 +14,10 @@
   <% end %>
 
   <input type="hidden" name="usuario[id]" value="<%= usuario.id %>" data-target="usuarios.id" />
-  <input type="hidden" name="usuario[conta_attributes][ativa]" value="true" />
+
+  <% unless usuario&.id %>
+    <input type="hidden" name="usuario[conta_attributes][ativa]" value="true" />
+  <% end %>
 
   <div class="form-group">
     <%= form.label :nome, 'Nome' %>

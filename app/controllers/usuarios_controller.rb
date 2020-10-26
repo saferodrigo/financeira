@@ -9,15 +9,14 @@ class UsuariosController < ApplicationController
   include ActionView::Helpers::NumberHelper
 
   def index
-    flash[:error] = 'Acesso negado!'
-    redirect_to root_path
+    acesso_negado
   end
 
   def show; end
 
   def new
+    flash[:alert] = 'Cliente desconectado.' if current_user.present?
     sign_out
-    flash[:info] = 'Cliente desconectado.' if current_user.present?
     @usuario = Usuario.new
   end
 
@@ -41,7 +40,7 @@ class UsuariosController < ApplicationController
 
   def update
     respond_to do |format|
-      if @usuario.update(usuario_params)
+      if @usuario.update!(usuario_params)
         format.html { redirect_to @usuario, notice: 'Conta alterada com sucesso.' }
         format.json { render :show, status: :ok, location: @usuario }
       else
@@ -69,7 +68,8 @@ class UsuariosController < ApplicationController
         cpf: usuario.cpf_formatado,
         conta: {
           id: usuario.conta&.id,
-          numero: usuario.conta&.numero_formatado
+          numero: usuario.conta&.numero_formatado&.to_s,
+          ativa: usuario.conta&.ativa
         }
       }
     }
@@ -96,6 +96,7 @@ class UsuariosController < ApplicationController
     Usuario.transaction do
       valor = normaliza_money(params[:valor])
       valor = valor.to_f
+      conta_transferencia = Conta.find(params[:conta_id]) if params[:conta_id].present?
       sucesso = false
       msg = ''
       msg_error = validar_movimentacoes(tipo: params[:tipo], valor: valor, conta: @usuario&.conta)
@@ -105,15 +106,15 @@ class UsuariosController < ApplicationController
         case params[:tipo]
         when 'deposito'
           sucesso = @usuario.depositar(valor)
-          msg = 'Depósito efetuado com sucesso.'
+          msg = "Depósito de #{number_to_currency(valor)} efetuado com sucesso."
 
         when 'saque'
           sucesso = @usuario.sacar(valor)
-          msg = 'Saque efetuado com sucesso.'
+          msg = "Saque de #{number_to_currency(valor)} efetuado com sucesso."
 
         when 'transferencia'
-          sucesso = @usuario.transferir(valor, params[:conta_id])
-          msg = 'Transferência efetuada com sucesso.'
+          sucesso = @usuario.transferir(valor, conta_transferencia&.id)
+          msg = "Transferência para #{conta_transferencia.usuario.nome.titleize} de #{number_to_currency(valor)} efetuada com sucesso."
         end
 
       end
@@ -131,12 +132,16 @@ class UsuariosController < ApplicationController
   private
 
   def set_usuario
-    @usuario = Usuario.find(params[:id])
+    @usuario = Usuario.find(params[:id]) if Usuario.exists?(params[:id])
+
+    return if params[:id].present? && Usuario.exists?(params[:id])
+
+    acesso_negado
   end
 
   def usuario_params
     params.require(:usuario).permit(
-      :nome, :cpf, :password, :password_confirmation,
+      :id, :nome, :cpf, :password, :password_confirmation,
       conta_attributes: %i[id ativa numero saldo]
     )
   end
@@ -146,9 +151,7 @@ class UsuariosController < ApplicationController
 
     return if current_user == usuario
 
-    flash[:error] = 'Acesso Negado!'
-    sign_out
-    redirect_to root_path
+    acesso_negado
   end
 
   def validar_movimentacoes(tipo: '', valor: 0, conta: nil)

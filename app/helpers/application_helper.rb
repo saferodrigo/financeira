@@ -3,18 +3,29 @@ require 'cgi'
 module ApplicationHelper
   def custom_bootstrap_flash
     flash_messages = []
+    tipo = 'warning'
 
     flash.each do |type, message|
-      type = 'success' if type == 'notice'
-      type = 'error'   if type == 'alert'
+      tipo = 'success' if %w[success notice].include?(type)
+      tipo = 'error' if %w[error alert].include?(type)
+
       message = CGI.escapeHTML(message) # escapa aspas simples e/ou duplas
 
-      text = "toastr.#{type}('#{message}', { timeOut: 5000 });"
+      text = message.to_s
       flash_messages << text.html_safe if message
     end
+
+    return if flash_messages.empty?
+
     flash_messages = flash_messages.join('\n')
 
-    "<script>$(document).ready(function() { #{flash_messages} });</script>".html_safe
+    "<script>$(document).ready(function() {
+      swal({
+        title: 'Atenção!',
+        text: '#{flash_messages}',
+        icon: '#{tipo}'
+      })
+    });</script>".html_safe
   end
 
   def loading_modal_before_ajax
@@ -35,5 +46,11 @@ module ApplicationHelper
     return if money.blank?
 
     money.to_s.gsub('R$', '').gsub('.', '').gsub(',', '.')
+  end
+
+  def acesso_negado
+    flash[:error] = 'Acesso Negado!'
+    sign_out
+    redirect_to root_path
   end
 end

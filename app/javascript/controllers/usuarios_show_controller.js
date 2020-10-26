@@ -24,7 +24,7 @@ export default class extends Controller {
   msgError(msg) {
     Swal.fire({
       title: 'Atenção!',
-      text: msg,
+      html: msg,
       icon: 'warning',
       allowOutsideClick: false
     })
@@ -59,8 +59,8 @@ export default class extends Controller {
       icon: 'warning',
       showCancelButton: true,
       cancelButtonText: 'Cancelar'
-    }).then((isConfirm) => {
-      if (isConfirm) {
+    }).then((data) => {
+      if (data.isConfirmed) {
         this.exibirModal()
 
         Turbolinks.clearCache()
@@ -153,12 +153,11 @@ export default class extends Controller {
       }, 500)
     }
     }).then((data) => {
-      if (data.value) {
+      if (data.isConfirmed) {
 
         if (data.value.split('_').length == 1) {
 
           exibirModalTarget()
-          // href += `&cpf=${data.value}`
 
           $.ajax({
             url: `/usuarios/usuario_por_cpf?cpf=${data.value}`,
@@ -172,7 +171,11 @@ export default class extends Controller {
 
                   if (data.usuario.id == idValue) {
 
-                    msgErrorTarget('Não é possível tranferir para própria conta. Tente fazer um depósito')
+                    msgErrorTarget('Não é possível transferir para própria conta. Tente fazer um depósito')
+
+                  } else if (!data.usuario.conta.ativa) {
+
+                    msgErrorTarget(`Cliente ${data.usuario.nome} está <strong class='text-danger'>DESATIVADO</strong> e não é possível efetuar a transferência.`)
 
                   } else {
 
@@ -228,7 +231,7 @@ export default class extends Controller {
 
                 } else {
 
-                  msgErrorTarget('Cliente não cadastrado.')
+                  msgErrorTarget('Cliente não cadastrado no nosso sistema.')
 
                 }
 
@@ -248,8 +251,6 @@ export default class extends Controller {
           this.msgError('CPF inválido.')
         }
 
-      } else {
-        this.msgError('CPF não foi digitado.')
       }
     })
   }

@@ -1,6 +1,8 @@
 import { Controller } from "stimulus"
 
 import toastr from 'toastr'
+import swal from 'sweetalert'
+import Swal from 'sweetalert2'
 export default class extends Controller {
   static targets = [
     "buttonAcessarConta", "buttonCadastrarConta"
