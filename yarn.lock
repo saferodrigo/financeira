@@ -3095,6 +3095,11 @@ findup-sync@^3.0.0:
     micromatch "^3.0.4"
     resolve-dir "^1.0.1"
 
+flatpickr@^4.6.6:
+  version "4.6.6"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.6.tgz#34d2ad80adfa34254e62583a34264d472f1038d6"
+  integrity sha512-EZ48CJMttMg3maMhJoX+GvTuuEhX/RbA1YeuI19attP3pwBdbYy6+yqAEVm0o0hSBFYBiLbVxscLW6gJXq6H3A==
+
 flatted@^2.0.1:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
@@ -4057,7 +4062,34 @@ jest-worker@^25.4.0:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
-jquery@>=1.12.0, jquery@^3.5.1:
+jquery-maskmoney@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/jquery-maskmoney/-/jquery-maskmoney-3.0.2.tgz#f18de4f06b8c66ad97cae8b320571c936ac637b7"
+  integrity sha1-8Y3k8GuMZq2XyuizIFcck2rGN7c=
+  dependencies:
+    jquery ">=1.6"
+
+jquery-migrate@^3.3.1:
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/jquery-migrate/-/jquery-migrate-3.3.1.tgz#0f8e2b7531228fda5d88be58dc0e7d5848e52fd1"
+  integrity sha512-QAXfshB6xqaANDX8OPExKnnooLtX0cSDCKfRnqhdv+3CVEVD9L1v3zNAhZum/4AukKlWUWUoxM6ywJJcLMXLSA==
+
+jquery-ui-dist@^1.12.1:
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/jquery-ui-dist/-/jquery-ui-dist-1.12.1.tgz#5c0815d3cc6f90ff5faaf5b268a6e23b4ca904fa"
+  integrity sha1-XAgV08xvkP9fqvWyaKbiO0ypBPo=
+
+jquery-ui@^1.12.1:
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/jquery-ui/-/jquery-ui-1.12.1.tgz#bcb4045c8dd0539c134bc1488cdd3e768a7a9e51"
+  integrity sha1-vLQEXI3QU5wTS8FIjN0+dop6nlE=
+
+jquery.browser@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/jquery.browser/-/jquery.browser-0.1.0.tgz#9c72a6095fd2814b44476ea8f716677b72a6a2bb"
+  integrity sha1-nHKmCV/SgUtER26o9xZne3Kmors=
+
+jquery@>=1.12.0, jquery@>=1.6, jquery@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.5.1.tgz#d7b4d08e1bfdb86ad2f1a3d039ea17304717abb5"
   integrity sha512-XwIBPqcMn57FxfT+Go5pzySnm4KWkT1Tv7gjrpT1srtf8Weynl6R273VJ5GjkRb51IzMp5nbaPjJXMWeju2MKg==
@@ -7007,6 +7039,11 @@ svgo@^1.0.0:
     stable "^0.1.8"
     unquote "~1.1.1"
     util.promisify "~1.0.0"
+
+sweetalert2@^10.8.1:
+  version "10.8.1"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-10.8.1.tgz#4266bd84bcc19170bc8e1bd179f207c67f910ea4"
+  integrity sha512-CRTy1fODxSqX6sGYMP4/9TT1QXlsjElRA4xoJVoCWa8L39l8jBwh/DWOFPb5Re1+EMTqOexDrT38jP0GI/DLZQ==
 
 sweetalert@^2.1.2:
   version "2.1.2"

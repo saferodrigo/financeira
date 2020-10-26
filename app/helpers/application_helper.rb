@@ -30,4 +30,10 @@ module ApplicationHelper
 
     </script>".html_safe
   end
+
+  def normaliza_money(money)
+    return if money.blank?
+
+    money.to_s.gsub('R$', '').gsub('.', '').gsub(',', '.')
+  end
 end

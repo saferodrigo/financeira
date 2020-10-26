@@ -1,7 +1,7 @@
 require 'cpf_cnpj'
 
 class Usuario < ApplicationRecord
-  has_secure_password validations: false
+  has_secure_password
 
   has_one :conta, class_name: 'Conta', dependent: :destroy
 
@@ -22,6 +22,31 @@ class Usuario < ApplicationRecord
     conta.ativa = false
 
     save!
+  end
+
+  def depositar(valor)
+    return false if valor.blank?
+
+    conta.saldo += valor.to_f
+    save!
+  end
+
+  def sacar(valor)
+    return false if valor.blank?
+
+    conta.saldo -= valor.to_f
+    save!
+  end
+
+  def transferir(valor, conta_id)
+    return false if valor.blank? || conta_id.blank?
+
+    conta.saldo -= valor.to_f
+    save!
+
+    conta_tranferencia = Conta.find(conta_id)
+    conta_tranferencia.valor += valor.to_f
+    conta_tranferencia.save!
   end
 
   private

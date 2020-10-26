@@ -3,7 +3,8 @@ Rails.application.routes.draw do
 
   resources :usuarios do
     get :gerar_cpf, on: :collection, format: :json
-    get :saldo, on: :member, format: :json
+    get :usuario_por_cpf, on: :collection, format: :json
+    get :movimentacao, on: :member, format: :json
     get :encerrar_conta, on: :member
   end
 

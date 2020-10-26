@@ -21,7 +21,6 @@ export default class extends Controller {
   }
 
   irParaLogin() {
-    console.log('aqu')
     Turbolinks.clearCache()
     Turbolinks.visit('/login', {
       action: 'replace'

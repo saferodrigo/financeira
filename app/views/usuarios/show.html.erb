@@ -21,6 +21,8 @@
   <hr>
 
   <div class="row">
+    <% if @usuario&.conta&.ativa? %>
+
     <div class="col-md-6">
       <%= link_to edit_usuario_path, class: 'btn btn-outline-secondary btn-sm' do %>
       <i class="fas fa-edit"></i>
@@ -30,15 +32,29 @@
 
     <div class="col-md-6">
       <%= link_to encerrar_conta_usuario_path(@usuario), class: 'btn btn-outline-danger btn-sm float-right',
-        data: {
-          target: 'usuarios-show.buttonEncerrarConta',
-          action: 'usuarios-show#encerrarConta',
-          numero: @usuario.conta.numero_formatado
-        } do %>
+                data: {
+                  target: 'usuarios-show.buttonEncerrarConta',
+                  action: 'usuarios-show#encerrarConta',
+                  numero: @usuario&.conta&.numero_formatado
+                } do %>
       <i class="fas fa-times"></i>
       Encerrar Conta
       <% end %>
     </div>
+
+    <% else %>
+
+    <div class="col-md-6"></div>
+
+    <div class="col-md-6">
+      <button type="button" class="btn btn-sm btn-danger float-right" data-placement="top" data-toggle="popover"
+        title="Conta encerrada"
+        data-content="Para reativar sua conta, contate nosso departamento administrativo ou pelo telefone (99) 99999-9999.">
+        Conta encerrada
+      </button>
+    </div>
+
+    <% end %>
   </div>
   <% end %>
 
@@ -49,33 +65,71 @@
 
       <div class="col-md-8 text-left">
         <span class="bd-content-title">
-          Conta
-          <% if @usuario.conta.ativa? %>
-          <i class="fas fa-check-circle text-success" title="Conta ativa"></i>
-          <% else %>
-          <i class="fas fa-times-circle text-danger" title="Conta encerrada"></i>
-          <% end %>
+          <h4>
+            Conta
+            <% if @usuario.conta.ativa? %>
+            <i class="fas fa-check-circle text-success" title="Conta ativa"></i>
+            <% else %>
+            <i class="fas fa-times-circle text-danger" title="Conta encerrada"></i>
+            <% end %>
+          </h4>
         </span>
       </div>
 
       <div class="col-md-4 text-right">
-        n° <%= @usuario.conta.numero_formatado %>
+        <h4><%= @usuario&.conta&.numero_formatado %></h4>
       </div>
     </div>
 
     <hr>
 
-    <p>
-      <button class="btn btn-outline-primary" type="button" data-toggle="collapse" data-target="#collapseSaldo"
-        aria-expanded="false" aria-controls="collapseSaldo">
-        Saldo
-      </button>
-    </p>
+    <% if @usuario.conta.ativa? %>
+      <p>
+        <button class="btn btn-outline-info" type="button" data-toggle="collapse" data-target="#collapseSaldo"
+          aria-expanded="false" aria-controls="collapseSaldo">
+          <i class="fas fa-piggy-bank"></i> Saldo
+        </button>
 
-    <div class="collapse" id="collapseSaldo">
-      <div id="card-saldo" class="card card-body">
-        <h3>Saldo atual: <strong><%= number_to_currency(@usuario.conta.saldo) %></strong></h3>
+        <%= link_to movimentacao_usuario_path(@usuario, tipo: 'deposito'), class: "btn btn-outline-secondary",
+          data: {
+            action: 'usuarios-show#movimentacao',
+            tipo: 'depósito'
+          } do %>
+
+        <i class="fas fa-money-bill-alt"></i> Depósito
+        <% end %>
+
+        <%= link_to movimentacao_usuario_path(@usuario, tipo: 'saque'), class: "btn btn-outline-success",
+          data: {
+            action: 'usuarios-show#movimentacao',
+            tipo: 'saque'
+          } do %>
+
+        <i class="fas fa-money-check-alt"></i> Saque
+        <% end %>
+
+        <%= link_to movimentacao_usuario_path(@usuario, tipo: 'transferencia'), class: "btn btn-outline-primary",
+          data: {
+            target: 'usuarios-show.buttonTransferencia',
+            action: 'usuarios-show#transferencia'
+          } do %>
+
+        <i class="fas fa-dollar-sign"></i> Transferência
+        <% end %>
+      </p>
+
+      <div class="collapse" id="collapseSaldo">
+        <div id="card-saldo" class="card card-body">
+          <h3>Saldo atual: <strong><%= number_to_currency(@usuario.conta.saldo) %></strong></h3>
+        </div>
       </div>
-    </div>
+    <% else %>
+      <h5>
+        Sua conta foi encerrada.
+        <p>
+          Contate nosso departamento administrativo ou pelo telefone (99) 99999-9999.
+        </p>
+      </h5>
+    <% end %>
   </div>
 </div>

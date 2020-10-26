@@ -19,7 +19,6 @@ export default class extends Controller {
   }
 
   fecharModal() {
-    console.log('fechar')
     $('#modal-carregando').modal('hide')
   }
 
@@ -60,7 +59,6 @@ export default class extends Controller {
     event.stopImmediatePropagation()
     
     const form = document.getElementById('form-usuario')
-    console.log('aqui')
 
     if (form.checkValidity()) {
 
