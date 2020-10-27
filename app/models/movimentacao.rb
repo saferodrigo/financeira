@@ -1,8 +1,8 @@
 class Movimentacao < ApplicationRecord
   belongs_to :conta
-  belongs_to :conta_transferencia, class_name: 'Conta', optional: true, foreign_key: :conta_transferencia_id
+  belongs_to :conta_transferencia, class_name: 'Conta', foreign_key: :conta_transferencia_id, optional: true
 
-  enum tipo: { deposito: 0, saque: 1, transferencia: 2, transferencia_recebida: 3 }
+  enum tipo: { deposito: 0, saque: 1, transferencia: 2, transferencia_recebida: 3, taxa_transferencia: 4 }
 
   validates :tipo, :valor, presence: true
 
@@ -17,9 +17,29 @@ class Movimentacao < ApplicationRecord
   def tipo_movimentacao
     tipo_descricao = I18n.t(:"activerecord.enums.movimentacao.tipo.#{tipo}")
 
-    tipo_descricao += " para #{conta_transferencia.usuario&.nome&.titleize}" if Movimentacao.tipos[tipo] == Movimentacao.tipos[:transferencia] && conta_transferencia.present?
-    tipo_descricao += " de #{conta_transferencia.usuario&.nome&.titleize}" if Movimentacao.tipos[tipo] == Movimentacao.tipos[:transferencia_recebida] && conta_transferencia.present?
+    return tipo_descricao unless conta_transferencia.present?
+
+    if Movimentacao.tipos[tipo] == Movimentacao.tipos[:transferencia]
+      tipo_descricao += " para #{conta_transferencia.usuario&.nome&.titleize}"
+    end
+
+    if Movimentacao.tipos[tipo] == Movimentacao.tipos[:transferencia_recebida]
+      tipo_descricao += " de #{conta_transferencia.usuario&.nome&.titleize}"
+    end
 
     tipo_descricao
+  end
+
+  def self.criar(conta_id, conta_transferencia_id, valor, tipo)
+    Movimentacao.create!(
+      conta_id: conta_id,
+      conta_transferencia_id: conta_transferencia_id,
+      valor: valor,
+      tipo: tipo
+    )
+  end
+
+  def sinal
+    %w[saque transferencia taxa_transferencia].include?(tipo) ? '-' : '+'
   end
 end

@@ -8,11 +8,14 @@ pt-BR:
           saque: 'Saque'
           transferencia: 'Transferência'
           transferencia_recebida: 'Transferência recebida'
+          taxa_transferencia: 'Taxa sobre transferência'
     models:
       usuario: 'Usuário'
     attributes:
       usuario:
         cpf: 'CPF'
+        password: 'Senha'
+        password_confirmation: 'Confirmação da senha'
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
@@ -239,6 +242,7 @@ pt-BR:
       long: "%d de %B de %Y, %H:%M"
       short: "%d de %B, %H:%M"
       data_hora: "%d de %B de %Y às %H:%M"
+      hora: "%H:%M"
     pm: ''  
   views:
     pagination:

@@ -12,64 +12,64 @@
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe "/usuarios", type: :request do
+RSpec.describe '/usuarios', type: :request do
   # Usuario. As you add validations to Usuario, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+    skip('Add a hash of attributes valid for your model')
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    skip('Add a hash of attributes invalid for your model')
   }
 
-  describe "GET /index" do
-    it "renders a successful response" do
+  describe 'GET /index' do
+    it 'renders a successful response' do
       Usuario.create! valid_attributes
       get usuarios_url
       expect(response).to be_successful
     end
   end
 
-  describe "GET /show" do
-    it "renders a successful response" do
+  describe 'GET /show' do
+    it 'renders a successful response' do
       usuario = Usuario.create! valid_attributes
       get usuario_url(usuario)
       expect(response).to be_successful
     end
   end
 
-  describe "GET /new" do
-    it "renders a successful response" do
+  describe 'GET /new' do
+    it 'renders a successful response' do
       get new_usuario_url
       expect(response).to be_successful
     end
   end
 
-  describe "GET /edit" do
-    it "render a successful response" do
+  describe 'GET /edit' do
+    it 'render a successful response' do
       usuario = Usuario.create! valid_attributes
       get edit_usuario_url(usuario)
       expect(response).to be_successful
     end
   end
 
-  describe "POST /create" do
-    context "with valid parameters" do
-      it "creates a new Usuario" do
+  describe 'POST /create' do
+    context 'with valid parameters' do
+      it 'creates a new Usuario' do
         expect {
           post usuarios_url, params: { usuario: valid_attributes }
         }.to change(Usuario, :count).by(1)
       end
 
-      it "redirects to the created usuario" do
+      it 'redirects to the created usuario' do
         post usuarios_url, params: { usuario: valid_attributes }
         expect(response).to redirect_to(usuario_url(Usuario.last))
       end
     end
 
-    context "with invalid parameters" do
-      it "does not create a new Usuario" do
+    context 'with invalid parameters' do
+      it 'does not create a new Usuario' do
         expect {
           post usuarios_url, params: { usuario: invalid_attributes }
         }.to change(Usuario, :count).by(0)
@@ -82,20 +82,20 @@ RSpec.describe "/usuarios", type: :request do
     end
   end
 
-  describe "PATCH /update" do
-    context "with valid parameters" do
+  describe 'PATCH /update' do
+    context 'with valid parameters' do
       let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
+        skip('Add a hash of attributes valid for your model')
       }
 
-      it "updates the requested usuario" do
+      it 'updates the requested usuario' do
         usuario = Usuario.create! valid_attributes
         patch usuario_url(usuario), params: { usuario: new_attributes }
         usuario.reload
-        skip("Add assertions for updated state")
+        skip('Add assertions for updated state')
       end
 
-      it "redirects to the usuario" do
+      it 'redirects to the usuario' do
         usuario = Usuario.create! valid_attributes
         patch usuario_url(usuario), params: { usuario: new_attributes }
         usuario.reload
@@ -103,7 +103,7 @@ RSpec.describe "/usuarios", type: :request do
       end
     end
 
-    context "with invalid parameters" do
+    context 'with invalid parameters' do
       it "renders a successful response (i.e. to display the 'edit' template)" do
         usuario = Usuario.create! valid_attributes
         patch usuario_url(usuario), params: { usuario: invalid_attributes }
@@ -112,15 +112,15 @@ RSpec.describe "/usuarios", type: :request do
     end
   end
 
-  describe "DELETE /destroy" do
-    it "destroys the requested usuario" do
+  describe 'DELETE /destroy' do
+    it 'destroys the requested usuario' do
       usuario = Usuario.create! valid_attributes
       expect {
         delete usuario_url(usuario)
       }.to change(Usuario, :count).by(-1)
     end
 
-    it "redirects to the usuarios list" do
+    it 'redirects to the usuarios list' do
       usuario = Usuario.create! valid_attributes
       delete usuario_url(usuario)
       expect(response).to redirect_to(usuarios_url)

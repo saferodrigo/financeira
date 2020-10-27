@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :movimentacao do
-    valor { "9.99" }
+    valor { '9.99' }
     tipo { 1 }
 
     association :conta

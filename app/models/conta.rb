@@ -6,8 +6,25 @@ class Conta < ApplicationRecord
 
   before_create :definir_numero
 
+  DIAS_DA_SEMANA_TAXA_TRANSFERENCIA_MINIMA = 1..5
+  HORA_TAXA_TRANSFERENCIA_MINIMA = 9..18
+
   def numero_formatado
     '%06d' % numero
+  end
+
+  def self.valor_taxa_transferencia(valor)
+    return if valor.blank?
+
+    taxa = 5
+
+    unless DIAS_DA_SEMANA_TAXA_TRANSFERENCIA_MINIMA.include?(Time.now.wday) || HORA_TAXA_TRANSFERENCIA_MINIMA.include?(Time.now.hour)
+      taxa = 7
+    end
+
+    taxa += 10 if valor.to_f > 1000
+
+    taxa
   end
 
   private

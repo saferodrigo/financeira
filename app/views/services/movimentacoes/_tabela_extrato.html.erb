@@ -1,33 +1,43 @@
 <% if @extrato.any? %>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Tipo</th>
-        <th class="text-right">Valor</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @extrato.each do |data, movimentacoes| %>
+  <div class="table-responsive">
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="text-left">Hora</th>
+          <th class="text-left" >Operação</th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th class="text-right">Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @extrato.each do |data, movimentacoes| %>
         <tr>
           <th scope="row"><%= I18n.l(data.to_date) %></th>
           <th scope="row"></th>
         </tr>
-
+        
         <% movimentacoes.each do |movimentacao| %>
-          <tr>
-            <td><%= movimentacao.tipo_movimentacao %></td>
-            <td class="text-right"><%= number_to_currency(movimentacao.valor) %></td>
-          </tr>
+        <tr>
+          <td class="text-left"><%= I18n.l(movimentacao.created_at, format: :hora) %></td>
+          <td class="text-left"><%= movimentacao.tipo_movimentacao %></td>
+          <td class="text-right" colspan="5"><%= movimentacao.sinal %> <%= number_to_currency(movimentacao.valor) %></td>
+        </tr>
         <% end %>
-      <% end %>
-
-      <tr>
-        <th>Saldo atual</th>
-        <th class="text-right"><%= number_to_currency(@usuario.conta.saldo) %></th>
-      </tr>
-    </tbody>
-  </table>
-<% else %>
+        <% end %>
+        
+        <tr>
+          <th>Saldo atual</th>
+          <th></th>
+          <th class="text-right" colspan="5"><%= number_to_currency(@usuario.conta.saldo) %></th>
+        </tr>
+      </tbody>
+    </table>
+  </div>  
+  <% else %>
   <hr>
   <span class="bg-larg">Nenhum registro encontrado.</span>
-<% end %>
+  <% end %>

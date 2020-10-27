@@ -137,7 +137,7 @@ export default class extends Controller {
 
     Swal.fire({
     title: 'Atenção!',
-    text: 'Digite o CPF do usuário para efetuar a tranferência:',
+    text: 'Digite o CPF do usuário para efetuar a transferência:',
     icon: 'warning',
     input: 'text',
     inputAttributes: {
@@ -181,8 +181,9 @@ export default class extends Controller {
 
                     href += `&conta_id=${data.usuario.conta.id}`
 
-                    let innerHTML = `Transferindo para <strong>${data.usuario.nome}</strong> - CPF: <strong>${data.usuario.cpf}</strong>, conta n° <strong>${data.usuario.conta.numero}</strong>.<br/><br/>`
-                    innerHTML += `<label for="currency">Digite o valor da transfência: </label>`
+                    let innerHTML = `Transferindo para <strong>${data.usuario.nome}</strong> - CPF: <strong>${data.usuario.cpf}</strong>, conta n° <strong>${data.usuario.conta.numero}</strong>.`
+                    innerHTML += '<p class="text-danger" title="Confira a seção TAXAS DE TRANSFÊNCIAS">Sujeito à taxa de transferência*</p><br/><br/>'
+                    innerHTML += '<label for="currency">Digite o valor da transfência: </label>'
 
                     Swal.fire({
                       title: 'Atenção!',

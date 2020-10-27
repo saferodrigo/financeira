@@ -117,6 +117,11 @@
         <i class="fas fa-dollar-sign"></i> Transferência
         <% end %>
 
+        <button class="btn btn-outline-danger" type="button" data-toggle="collapse" data-target="#collapseTaxaTransferencia"
+          aria-expanded="false" aria-controls="collapseTaxaTransferencia">
+          <i class="fas fa-percent"></i> Taxas de Transferências
+        </button>
+
         <button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#collapseExtrato"
           aria-expanded="false" aria-controls="collapseExtrato">
           <i class="fas fa-search-dollar"></i> Extrato
@@ -125,7 +130,19 @@
 
       <div class="collapse" id="collapseSaldo">
         <div id="card-saldo" class="card card-body">
-          <h3>Saldo atual: <strong><%= number_to_currency(@usuario.conta.saldo) %></strong></h3>
+          <h5>Saldo atual: <strong><%= number_to_currency(@usuario.conta.saldo) %></strong></h5>
+        </div>
+      </div>
+
+      <div class="collapse" id="collapseTaxaTransferencia">
+        <div id="card-taxa-transferencia" class="card card-body">
+          <h5>Taxas de transferências</h5>
+          <hr>
+          <ul>
+            <li>De segunda a sexta, das 9 às 18 horas a taxa é de <b>R$ 5,00</b> por transferência</li>
+            <li>Fora desse horário a taxa é de <b>R$ 7,00</b></li>
+            <li>Acima de R$ 1000,00 há um <b>adicional</b> de <b>R$ 10,00</b> na taxa</li>
+          </ul>
         </div>
       </div>
 

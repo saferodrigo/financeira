@@ -28,11 +28,8 @@ class Usuario < ApplicationRecord
     return false if valor.blank?
 
     conta.saldo += valor.to_f
-    Movimentacao.create!(
-      conta_id: conta&.id,
-      valor: valor,
-      tipo: Movimentacao.tipos[:deposito]
-    )
+
+    Movimentacao.criar(conta&.id, nil, valor, Movimentacao.tipos[:deposito])
 
     save!
   end
@@ -41,11 +38,8 @@ class Usuario < ApplicationRecord
     return false if valor.blank?
 
     conta.saldo -= valor.to_f
-    Movimentacao.create!(
-      conta_id: conta&.id,
-      valor: valor,
-      tipo: Movimentacao.tipos[:saque]
-    )
+
+    Movimentacao.criar(conta&.id, nil, valor, Movimentacao.tipos[:saque])
 
     save!
   end
@@ -54,24 +48,22 @@ class Usuario < ApplicationRecord
     return false if valor.blank? || conta_id_transferencia.blank?
 
     conta.saldo -= valor.to_f
-    Movimentacao.create!(
-      conta_id: conta&.id,
-      valor: valor,
-      tipo: Movimentacao.tipos[:transferencia],
-      conta_transferencia_id: conta_id_transferencia
-    )
+    conta.saldo -= Conta.valor_taxa_transferencia(valor) # taxa
+
+    # movimentacao usuario transferidor
+    Movimentacao.criar(conta&.id, conta_id_transferencia, valor, Movimentacao.tipos[:transferencia])
+
+    # movimentacao taxa usuario transferidor
+    Movimentacao.criar(conta&.id, nil, Conta.valor_taxa_transferencia(valor), Movimentacao.tipos[:taxa_transferencia])
     save!
 
-    conta_tranferencia = Conta.find(conta_id_transferencia)
-    conta_tranferencia.saldo += valor.to_f
-    Movimentacao.create!(
-      conta_id: conta_tranferencia&.id,
-      valor: valor,
-      tipo: Movimentacao.tipos[:transferencia_recebida],
-      conta_transferencia_id: id
-    )
+    conta_transferencia = Conta.find(conta_id_transferencia)
+    conta_transferencia.saldo += valor.to_f
 
-    conta_tranferencia.save!
+    # movimentacao usuario transferencia recebida
+    Movimentacao.criar(conta_id_transferencia, id, valor, Movimentacao.tipos[:transferencia_recebida])
+
+    conta_transferencia.save!
   end
 
   private
