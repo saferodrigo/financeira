@@ -176,7 +176,8 @@ class UsuariosController < ApplicationController
     if tipo.present?
       msg << "#{Movimentacao.tipos[tipo]} deve ser positivo." if valor.negative?
       msg << "#{Movimentacao.tipos[tipo]} deve ser maior que zero." if valor.zero?
-      msg << 'Saldo insuficiente.' if %w[saque transferencia].include?(tipo) && (valor.to_f + Conta.valor_taxa_transferencia(valor)) > conta&.saldo&.to_f
+      msg << 'Saldo insuficiente.' if %w[saque].include?(tipo) && (valor.to_f) > conta&.saldo&.to_f
+      msg << 'Saldo insuficiente.' if %w[transferencia].include?(tipo) && (valor.to_f + Conta.valor_taxa_transferencia(valor)) > conta&.saldo&.to_f
     end
 
     msg
