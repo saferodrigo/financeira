@@ -1,0 +1,3 @@
+$('#modal-extrato').modal({ backdrop: 'static', keyboard: false, show: true })
+$('.bg-dark h4').html('<%= titulo_modal_extrato(numero_conta: @usuario&.conta&.numero_formatado, data_inicio: @data_inicio, data_fim: @data_fim) %>')
+$('.modal__conteudo').html("<%= j render 'services/movimentacoes/tabela_extrato' %>")

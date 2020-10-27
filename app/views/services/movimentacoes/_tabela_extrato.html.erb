@@ -1,0 +1,33 @@
+<% if @extrato.any? %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tipo</th>
+        <th class="text-right">Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @extrato.each do |data, movimentacoes| %>
+        <tr>
+          <th scope="row"><%= I18n.l(data.to_date) %></th>
+          <th scope="row"></th>
+        </tr>
+
+        <% movimentacoes.each do |movimentacao| %>
+          <tr>
+            <td><%= movimentacao.tipo_movimentacao %></td>
+            <td class="text-right"><%= number_to_currency(movimentacao.valor) %></td>
+          </tr>
+        <% end %>
+      <% end %>
+
+      <tr>
+        <th>Saldo atual</th>
+        <th class="text-right"><%= number_to_currency(@usuario.conta.saldo) %></th>
+      </tr>
+    </tbody>
+  </table>
+<% else %>
+  <hr>
+  <span class="bg-larg">Nenhum registro encontrado.</span>
+<% end %>

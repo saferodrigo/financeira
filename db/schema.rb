@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_24_152900) do
+ActiveRecord::Schema.define(version: 2020_10_26_221751) do
 
   create_table "contas", force: :cascade do |t|
     t.integer "usuario_id", null: false
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2020_10_24_152900) do
     t.index ["usuario_id"], name: "index_contas_on_usuario_id"
   end
 
+  create_table "movimentacoes", force: :cascade do |t|
+    t.integer "conta_id", null: false
+    t.decimal "valor", null: false
+    t.integer "tipo", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "conta_transferencia_id"
+    t.index ["conta_id"], name: "index_movimentacoes_on_conta_id"
+  end
+
   create_table "usuarios", force: :cascade do |t|
     t.string "nome", null: false
     t.string "cpf", null: false
@@ -31,4 +41,5 @@ ActiveRecord::Schema.define(version: 2020_10_24_152900) do
   end
 
   add_foreign_key "contas", "usuarios"
+  add_foreign_key "movimentacoes", "contas"
 end

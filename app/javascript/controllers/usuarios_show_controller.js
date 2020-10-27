@@ -1,11 +1,11 @@
 import { Controller } from "stimulus"
 
-import toastr from 'toastr'
+import swal from 'sweetalert'
 import Swal from 'sweetalert2'
 
 export default class extends Controller {
   static targets = [
-    "id", "buttonEncerrarConta", "buttonTransferencia"
+    "id", "buttonEncerrarConta", "buttonTransferencia", "inputDataInicio", "inputDataFim"
   ]
 
   connect() {}
@@ -50,8 +50,8 @@ export default class extends Controller {
     const href = currentTarget.getAttribute('href')
     const numero = currentTarget.getAttribute('data-numero')
     const wrapper = document.createElement('div')
-    let innerHTML = `<p>Tem certeza de que deseja encerrar a conta n° ${numero}?</p>`
-    innerHTML += '<p>Esta ação não poderá ser desfeita</p>'
+    let innerHTML = `Tem certeza de que deseja encerrar a conta n° ${numero}?`
+    innerHTML += '<p>Esta ação não poderá ser desfeita.</p>'
 
     Swal.fire({
       title: 'Atenção!',
@@ -155,7 +155,7 @@ export default class extends Controller {
     }).then((data) => {
       if (data.isConfirmed) {
 
-        if (data.value.split('_').length == 1) {
+        if (data.value && data.value.split('_').length == 1) {
 
           exibirModalTarget()
 
@@ -253,5 +253,45 @@ export default class extends Controller {
 
       }
     })
+  }
+
+  filtrarExtrato(event) {
+    event.preventDefault()
+    event.stopImmediatePropagation()
+
+    const currentTarget = event.target || event.currentTarget
+    const form = document.getElementById('form-filtro-extrato')
+    let urlSearchExtrato = form.getAttribute('action')
+  
+    if (this.inputDataInicioTarget.value && this.inputDataFimTarget.value) {
+
+      if (this._transformDate(this.inputDataInicioTarget.value) <= this._transformDate(this.inputDataFimTarget.value)) {
+
+        urlSearchExtrato += `?data_inicio=${this.inputDataInicioTarget.value}&data_fim=${this.inputDataFimTarget.value}`
+
+        $.ajax({
+          url: urlSearchExtrato,
+          method: 'GET',
+          success: function (data) {
+            // console.log('success', data)
+          },
+          error: function (error) {
+            // console.log('error', error)
+          }
+        })
+
+      } else {
+        this.msgError('Data início deve ser igual ou superior à data fim')
+      }
+
+    } else {
+      this.msgError('Preencha as datas início e fim.')
+    }
+  }
+
+  _transformDate(dateStr) {
+    dateStr = dateStr.replaceAll('-', '/')
+
+    return new Date(dateStr)
   }
 }

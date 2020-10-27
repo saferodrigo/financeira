@@ -109,11 +109,11 @@ class UsuariosController < ApplicationController
           msg = "Depósito de #{number_to_currency(valor)} efetuado com sucesso."
 
         when 'saque'
-          sucesso = @usuario.sacar(valor)
+          sucesso = @usuario.saque(valor)
           msg = "Saque de #{number_to_currency(valor)} efetuado com sucesso."
 
         when 'transferencia'
-          sucesso = @usuario.transferir(valor, conta_transferencia&.id)
+          sucesso = @usuario.transferir(valor: valor, conta_id_transferencia: conta_transferencia&.id)
           msg = "Transferência para #{conta_transferencia.usuario.nome.titleize} de #{number_to_currency(valor)} efetuada com sucesso."
         end
 
@@ -127,6 +127,22 @@ class UsuariosController < ApplicationController
 
       redirect_to @usuario
     end
+  end
+
+  def search_extrato
+    @data_inicio = params[:data_inicio]&.to_date
+    @data_fim = params[:data_fim]&.to_date
+    @data_inicio ||= Date.today
+    @data_fim ||= Date.today
+    @usuario = Usuario.find(params[:id])
+
+    @extrato = @usuario.conta.movimentacoes
+                       .by_periodo(@data_inicio, @data_fim)
+                       .group_by { |m| m.created_at&.to_date }
+
+    return if params[:id].present? && Usuario.exists?(params[:id])
+
+    acesso_negado
   end
 
   private
@@ -147,7 +163,7 @@ class UsuariosController < ApplicationController
   end
 
   def validar_permissao
-    usuario = Usuario.find(params[:id])
+    usuario = Usuario.find(params[:id]) if params[:id].present?
 
     return if current_user == usuario
 

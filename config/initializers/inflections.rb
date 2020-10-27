@@ -50,4 +50,6 @@ ActiveSupport::Inflector.inflections do |inflect|
   # Irregulares
   inflect.irregular 'país', 'países'
   inflect.irregular 'painel', 'paineis'
+
+  inflect.irregular 'movimentacao', 'movimentacoes'
 end

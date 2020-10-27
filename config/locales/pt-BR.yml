@@ -1,6 +1,13 @@
 ---
 pt-BR:
   activerecord:
+    enums:
+      movimentacao:
+        tipo:
+          deposito: 'Depósito'
+          saque: 'Saque'
+          transferencia: 'Transferência'
+          transferencia_recebida: 'Transferência recebida'
     models:
       usuario: 'Usuário'
     attributes:

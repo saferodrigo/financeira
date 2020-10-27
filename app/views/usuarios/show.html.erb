@@ -116,11 +116,23 @@
 
         <i class="fas fa-dollar-sign"></i> Transferência
         <% end %>
+
+        <button class="btn btn-outline-dark" type="button" data-toggle="collapse" data-target="#collapseExtrato"
+          aria-expanded="false" aria-controls="collapseExtrato">
+          <i class="fas fa-search-dollar"></i> Extrato
+        </button>
       </p>
 
       <div class="collapse" id="collapseSaldo">
         <div id="card-saldo" class="card card-body">
           <h3>Saldo atual: <strong><%= number_to_currency(@usuario.conta.saldo) %></strong></h3>
+        </div>
+      </div>
+
+      <div class="collapse" id="collapseExtrato">
+        <div id="card-extrato" class="card card-body">
+          <%= render 'usuarios/modal_extrato', usuario: @usuario %>
+          <%= render 'usuarios/filtro_extrato', usuario: @usuario %>
         </div>
       </div>
     <% else %>

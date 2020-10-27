@@ -1,5 +1,6 @@
 class Conta < ApplicationRecord
   belongs_to :usuario
+  has_many :movimentacoes
 
   validates :numero, uniqueness: true
 

@@ -28,24 +28,49 @@ class Usuario < ApplicationRecord
     return false if valor.blank?
 
     conta.saldo += valor.to_f
+    Movimentacao.create!(
+      conta_id: conta&.id,
+      valor: valor,
+      tipo: Movimentacao.tipos[:deposito]
+    )
+
     save!
   end
 
-  def sacar(valor)
+  def saque(valor)
     return false if valor.blank?
 
     conta.saldo -= valor.to_f
+    Movimentacao.create!(
+      conta_id: conta&.id,
+      valor: valor,
+      tipo: Movimentacao.tipos[:saque]
+    )
+
     save!
   end
 
-  def transferir(valor, conta_id)
-    return false if valor.blank? || conta_id.blank?
+  def transferir(valor: nil, conta_id_transferencia: nil)
+    return false if valor.blank? || conta_id_transferencia.blank?
 
     conta.saldo -= valor.to_f
+    Movimentacao.create!(
+      conta_id: conta&.id,
+      valor: valor,
+      tipo: Movimentacao.tipos[:transferencia],
+      conta_transferencia_id: conta_id_transferencia
+    )
     save!
 
-    conta_tranferencia = Conta.find(conta_id)
+    conta_tranferencia = Conta.find(conta_id_transferencia)
     conta_tranferencia.saldo += valor.to_f
+    Movimentacao.create!(
+      conta_id: conta_tranferencia&.id,
+      valor: valor,
+      tipo: Movimentacao.tipos[:transferencia_recebida],
+      conta_transferencia_id: id
+    )
+
     conta_tranferencia.save!
   end
 

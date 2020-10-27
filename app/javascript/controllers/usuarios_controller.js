@@ -1,6 +1,5 @@
 import { Controller } from "stimulus"
 
-import toastr from 'toastr'
 import swal from 'sweetalert'
 import Swal from 'sweetalert2'
 
@@ -24,11 +23,11 @@ export default class extends Controller {
   }
 
   msgError(msg) {
-    swal({
+    Swal.fire({
       title: 'Atenção!',
       text: msg,
       icon: 'warning',
-      closeOnClickOutside: false
+      allowOutsideClick: false
     })
   }
 
@@ -64,17 +63,18 @@ export default class extends Controller {
     if (form.checkValidity()) {
 
       if (this.idTarget.value || this.idTarget.value != '') {
-        swal({
+        Swal.fire({
           title: 'Atenção!',
           text: 'Tem certeza que deseja confirmar estas alterações no cadastro da sua conta?',
           icon: 'warning',
-          buttons: ['Cancelar', 'Sim']
-        }).then((isConfirm) => {
-          if (isConfirm) {
+          showCancelButton: true,
+          cancelButtonText: 'Cancelar'
+        }).then((data) => {
+          if (data.isConfirmed) {
             form.submit()
           }
         })
-        
+
       } else {
         form.submit()
       }
