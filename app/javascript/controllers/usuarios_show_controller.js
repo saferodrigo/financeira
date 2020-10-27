@@ -171,7 +171,7 @@ export default class extends Controller {
 
                   if (data.usuario.id == idValue) {
 
-                    msgErrorTarget('Não é possível transferir para própria conta. Tente fazer um depósito')
+                    msgErrorTarget('Não é possível transferir para própria conta. Tente fazer um <b>depósito</b>.')
 
                   } else if (!data.usuario.conta.ativa) {
 
