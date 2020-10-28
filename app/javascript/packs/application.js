@@ -54,6 +54,11 @@ $(document).on('turbolinks:load', function () {
 
 $(function () {
   $('[data-toggle="popover"]').popover()
+
+  $('[data-toggle="tooltip"]').tooltip({
+    trigger: 'click',
+    placement: 'bottom' 
+  })
 })
 
 import 'controllers'

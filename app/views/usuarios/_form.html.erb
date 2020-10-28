@@ -34,8 +34,10 @@
     }, placeholder: '* Campo obrigatório' %>
 
     <% unless usuario.id %>
-      <button type="button" role="button" class="form-control bt btn-light" data-target="usuarios.buttonGerarCPF"
-        data-action="usuarios#gerarCPF">Gerar CPF</button>
+      <button type="button" id="button-gerar-cpf" role="button" class="form-control btn btn-light" data-target="usuarios.buttonGerarCPF"
+        data-action="usuarios#gerarCPF" data-clipboard-text="1">
+        Gerar CPF
+      </button>
     <% end %>
   </div>
 

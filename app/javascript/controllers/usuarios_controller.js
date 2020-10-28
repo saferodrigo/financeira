@@ -34,6 +34,8 @@ export default class extends Controller {
   gerarCPF() {
     let cpf = this.cpfTarget
     let fecharModalTarget = this.fecharModal
+    let exibirTooltip = this._setTooltip
+    let esconderTolltip = this._hideTooltip
 
     this.exibirModal()
     $.ajax({
@@ -42,7 +44,12 @@ export default class extends Controller {
       success: function (data) {
         setTimeout(function () {
           cpf.value = data
+
+          cpf.select()
+          document.execCommand('copy') // copy cpf
           fecharModalTarget()
+          exibirTooltip('CPF Copiado!')
+          esconderTolltip()
         }, 500)
       },
       error: function (error) {
@@ -52,6 +59,18 @@ export default class extends Controller {
         }, 500)
       }
     })
+  }
+
+  _setTooltip(message) {
+    $("#button-gerar-cpf").tooltip('hide')
+        .attr('data-original-title', message)
+        .tooltip('show');
+  }
+
+  _hideTooltip() {
+    setTimeout(function() {
+      $("#button-gerar-cpf").tooltip('hide');
+    }, 2000);
   }
 
   salvar(event) {

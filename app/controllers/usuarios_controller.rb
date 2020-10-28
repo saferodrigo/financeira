@@ -27,9 +27,9 @@ class UsuariosController < ApplicationController
 
     respond_to do |format|
       if @usuario.save
-        sign_in(@usuario)
+        # sign_in(@usuario)
 
-        format.html { redirect_to @usuario, notice: 'Conta cadastrada com sucesso.' }
+        format.html { redirect_to login_path, notice: "Conta cadastrada com sucesso. #{@usuario&.nome&.titleize} - CPF: #{@usuario.cpf_formatado}" }
         format.json { render :show, status: :created, location: @usuario }
       else
         format.html { render :new }
