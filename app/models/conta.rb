@@ -3,9 +3,10 @@ class Conta < ApplicationRecord
   has_many :movimentacoes
 
   before_create :definir_numero
-  validates :numero, uniqueness: true
 
-  before_create :definir_numero
+  validates :numero, uniqueness: true
+  validates :saldo, presence: true
+
 
   DIAS_DA_SEMANA_TAXA_TRANSFERENCIA_MINIMA = 1..5
   HORA_TAXA_TRANSFERENCIA_MINIMA = 9..18
