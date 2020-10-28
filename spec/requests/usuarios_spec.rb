@@ -28,7 +28,7 @@ RSpec.describe 'Usuarios', type: :request do
 
       it 'redirects to the created usuario' do
         post usuarios_url, params: { usuario: valid_attributes }
-        expect(response).to redirect_to(usuario_url(Usuario.last))
+        expect(response).to redirect_to('/login')
       end
     end
 
