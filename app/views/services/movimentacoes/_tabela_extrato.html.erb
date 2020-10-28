@@ -17,7 +17,7 @@
         <% @extrato.each do |data, movimentacoes| %>
         <tr>
           <th scope="row"><%= I18n.l(data.to_date) %></th>
-          <th scope="row"></th>
+          <th scope="row" colspan="5"></th>
         </tr>
         
         <% movimentacoes.each do |movimentacao| %>

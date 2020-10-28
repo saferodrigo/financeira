@@ -90,7 +90,7 @@
           <i class="fas fa-piggy-bank"></i> Saldo
         </button>
 
-        <%= link_to movimentacao_usuario_path(@usuario, tipo: 'deposito'), class: "btn btn-outline-secondary",
+        <%= link_to movimentacao_usuario_path(id: @usuario.id, tipo: 'deposito'), class: "btn btn-outline-secondary",
           data: {
             action: 'usuarios-show#movimentacao',
             tipo: 'depósito'
@@ -99,7 +99,7 @@
         <i class="fas fa-money-bill-alt"></i> Depósito
         <% end %>
 
-        <%= link_to movimentacao_usuario_path(@usuario, tipo: 'saque'), class: "btn btn-outline-success",
+        <%= link_to movimentacao_usuario_path(id: @usuario.id, tipo: 'saque'), class: "btn btn-outline-success",
           data: {
             action: 'usuarios-show#movimentacao',
             tipo: 'saque'
@@ -108,7 +108,7 @@
         <i class="fas fa-money-check-alt"></i> Saque
         <% end %>
 
-        <%= link_to movimentacao_usuario_path(@usuario, tipo: 'transferencia'), class: "btn btn-outline-primary",
+        <%= link_to movimentacao_usuario_path(id: @usuario.id, tipo: 'transferencia'), class: "btn btn-outline-primary",
           data: {
             target: 'usuarios-show.buttonTransferencia',
             action: 'usuarios-show#transferencia'

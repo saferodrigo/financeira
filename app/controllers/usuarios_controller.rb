@@ -119,13 +119,15 @@ class UsuariosController < ApplicationController
 
       end
 
-      if sucesso
-        flash[:success] = msg
-      else
-        flash[:error] = msg_error.any? ? msg_error.join('/n') : 'Não foi possível efetuar esta operação.'
+      respond_to do |format|
+        if sucesso
+          format.html { redirect_to @usuario, notice: msg }
+          format.json { render :show, status: :ok, location: @usuario }
+        else
+          format.html { render :show, error: msg_error.any? ? msg_error.join('/n') : 'Não foi possível efetuar esta operação.' }
+          format.json { render show: msg_error.any? ? msg_error.join('/n') : 'Não foi possível efetuar esta operação.', status: :unprocessable_entity, location: @usuario }
+        end
       end
-
-      redirect_to @usuario
     end
   end
 
