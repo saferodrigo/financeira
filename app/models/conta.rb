@@ -2,6 +2,7 @@ class Conta < ApplicationRecord
   belongs_to :usuario
   has_many :movimentacoes
 
+  before_create :definir_numero
   validates :numero, uniqueness: true
 
   before_create :definir_numero

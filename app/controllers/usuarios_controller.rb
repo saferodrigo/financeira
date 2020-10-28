@@ -40,7 +40,7 @@ class UsuariosController < ApplicationController
 
   def update
     respond_to do |format|
-      if @usuario.update!(usuario_params)
+      if @usuario.update(usuario_params)
         format.html { redirect_to @usuario, notice: 'Conta alterada com sucesso.' }
         format.json { render :show, status: :ok, location: @usuario }
       else
@@ -78,7 +78,7 @@ class UsuariosController < ApplicationController
   def encerrar_conta
     respond_to do |format|
       if @usuario.encerrar_conta
-        format.html { redirect_to @usuario, success: 'Conta encerrada com sucesso' }
+        format.html { redirect_to @usuario, notice: 'Conta encerrada com sucesso' }
         format.json { render :show, status: :ok, location: @usuario }
       else
         format.html { render :edit }
@@ -90,7 +90,7 @@ class UsuariosController < ApplicationController
   def movimentacao
     if params[:id].blank? || params[:tipo].blank? || params[:valor].blank?
       flash[:error] = 'Parâmetros inválidos'
-      redirect_to @usuario
+      redirect_to root_path
     end
 
     Usuario.transaction do

@@ -1,13 +1,10 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe 'usuarios/edit', type: :view do
   before(:each) do
-    @usuario = assign(:usuario, Usuario.create!(
-      nome: 'MyString',
-      cpf: '641.245.630-94',
-      password: '123456',
-      password_digest: '123456'
-    ))
+    @usuario = assign(:usuario, create(:usuario))
   end
 
   it 'renders the edit usuario form' do

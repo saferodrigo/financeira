@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  resources :contas
-
   resources :usuarios do
     get :gerar_cpf, on: :collection, format: :json
     get :usuario_por_cpf, on: :collection, format: :json
