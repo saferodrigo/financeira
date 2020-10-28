@@ -27,5 +27,8 @@
   "version": "0.1.0",
   "devDependencies": {
     "webpack-dev-server": "^3.11.0"
-  }
+  },
+  "main": "index.js",
+  "author": "Rodrigo de Sá <rodrigo.ferreira.sa25@gmail.com>",
+  "license": "MIT"
 }
