@@ -24,7 +24,7 @@
         <tr>
           <td class="text-left"><%= I18n.l(movimentacao.created_at, format: :hora) %></td>
           <td class="text-left"><%= movimentacao.tipo_movimentacao %></td>
-          <td class="text-right" colspan="5"><%= movimentacao.sinal %> <%= number_to_currency(movimentacao.valor) %></td>
+          <td class="text-right" colspan="5"><%= movimentacao.valor_formatado %></td>
         </tr>
         <% end %>
         <% end %>

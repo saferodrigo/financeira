@@ -1,4 +1,6 @@
 class Movimentacao < ApplicationRecord
+  include ActionView::Helpers::NumberHelper
+
   belongs_to :conta
   belongs_to :conta_transferencia, class_name: 'Conta', foreign_key: :conta_transferencia_id, optional: true
 
@@ -41,5 +43,9 @@ class Movimentacao < ApplicationRecord
 
   def sinal
     %w[saque transferencia taxa_transferencia].include?(tipo) ? '-' : '+'
+  end
+
+  def valor_formatado
+    "#{sinal} #{number_to_currency(valor)}"
   end
 end
